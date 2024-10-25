@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Bill = () => {
 
@@ -36,7 +37,7 @@ const Bill = () => {
           <tr>
       <th className="text-center">{index+1}</th>
       <td className="text-center"><input type="month" value={monthlyBill?.billingMonth} disabled /></td>
-      <td className="text-center flex gap-4 justify-center"><button className="bg-green-500 px-4 py-1 rounded-sm">View</button> <button className="bg-green-500 px-4 py-1 rounded-sm">Download</button></td>
+      <td className="text-center flex gap-4 justify-center"> <Link to={`/viewBill/${monthlyBill?._id}`}><button className="bg-green-500 px-4 py-1 rounded-sm">View</button></Link>  <button className="bg-green-500 px-4 py-1 rounded-sm">Download</button></td>
       
     </tr>
         </>)

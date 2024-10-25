@@ -23,6 +23,9 @@ const Home = () => {
             <Link to='/bill'><div className="shadow-lg rounded-sm min-h-52 flex justify-center items-center">
                 <h2 className="font-semibold text-xl text-center font-one">Monthly Bill</h2>
             </div></Link>
+            <Link to='/dutyChart'><div className="shadow-lg rounded-sm min-h-52 flex justify-center items-center">
+                <h2 className="font-semibold text-xl text-center font-one">Duty Chart</h2>
+            </div></Link>
             
         </div>
     );

@@ -12,6 +12,8 @@ import BillRate from './Component/BillRate/BillRate';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import CreateBill from './Component/CreateBill/CreateBill';
 import Bill from './Component/Bill/Bill';
+import ViewMonthlyBill from './Component/ViewMonthlyBill/ViewMonthlyBill';
+import DutyChart from './Component/DutyChart/DutyChart';
 
 const queryClient = new QueryClient()
 
@@ -39,6 +41,14 @@ const router = createBrowserRouter([
       {
         path:'/bill',
         element:<Bill></Bill>
+      },
+      {
+        path:'/viewBill/:id',
+        element:<ViewMonthlyBill></ViewMonthlyBill>
+      },
+      {
+        path:'/dutyChart',
+        element:<DutyChart></DutyChart>
       },
     ]
   },

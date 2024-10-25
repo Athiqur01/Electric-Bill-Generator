@@ -11,11 +11,18 @@ const AddSubescriber = () => {
         formState: { errors },
     } = useForm();
 
-    const onSubmit=async(data)=>{
+     const onSubmit=async(data)=>{
+     const {name,designation,flatNo,meterNo,grade,EntryDate}=data
+     const unit=''
+     const bill=''
+     const newData={name,designation,flatNo,meterNo,grade,EntryDate,unit,bill}
      console.log(data)
-     const response = await axios.post("http://localhost:5012/subscriber", data);
-     console.log(response.data)
+      const response = await axios.post("http://localhost:5012/subscriber", data);
+      console.log(response.data)
                 if (response.data) {
+                    const response2 = await axios.post("http://localhost:5012/genBill", newData);
+                    console.log(response2.data)
+                if (response2.data) {
                     Swal.fire({
                         position: "top-center",
                         icon: "success",
@@ -23,6 +30,10 @@ const AddSubescriber = () => {
                         showConfirmButton: true,
                     });
                 }
+                   
+                }
+     //post for subscriber and bill----
+     
     }
 
     return (

@@ -31,7 +31,7 @@ const CreateBill = () => {
     const { value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [subscriberId]: value
+      [subscriberId]: {value}
     }));
 
     // Calculate the bill when input changes
@@ -64,7 +64,7 @@ const CreateBill = () => {
     // Update bill state for this subscriber
     setBill(prev => ({
       ...prev,
-      [subscriberId]: calculatedBill
+      [subscriberId]: {units,calculatedBill}
     }));
   };
 
@@ -76,11 +76,25 @@ const CreateBill = () => {
 
   // Handle form submission
   const handleDataSubmit = async () => {
-    const billingData = { billingMonth, formData };
+    const billingData = subscribers?.map(subscriber=>({
+      id:subscriber?._id,
+      name:subscriber?.name,
+      designation:subscriber?.designation,
+      flatNo:subscriber?.flatNo,
+      meterNo:subscriber?.meterNo,
+      unit:bill[subscriber?._id]?.units ||0,
+      bill: bill[subscriber?._id]?.calculatedBill || 0,
+      billingMonth:billingMonth
+    }))
+
     console.log("Submitted Data:", billingData);
+    console.log('billng month', billingMonth)
+    if(billingMonth===null){
+      return
+    }
 
     try {
-      const response = await axios.post(`http://localhost:5012/billingData?q=${billingMonth}`, billingData);
+      const response = await axios.post(`http://localhost:5012/billingData?q=${billingMonth}`, {billingData,billingMonth});
       console.log(response.data);
       if (response.data) {
         Swal.fire({
@@ -126,12 +140,12 @@ const CreateBill = () => {
             <input
               type="text"
               name="unit"
-              value={formData[subscriber?._id] || ""}
+              
               onChange={(e) => handleInputChange(e, subscriber?._id)}
               className="text-center border-green-300 border-[1px] py-1 rounded-md"
             />
 
-            <h2>{bill[subscriber?._id] ? `$${bill[subscriber?._id]}` : "N/A"}</h2>
+            <h2 className="text-center">{bill[subscriber?._id] ? `${bill[subscriber?._id]?.calculatedBill} Tk` : "N/A"}</h2>
           </form>
         ))}
         <div className="flex justify-center mt-4">
