@@ -33,6 +33,7 @@ const ViewMonthlyBill = () => {
   )
   console.log('subs',subscribers)
   const bills=billData?.billingData
+  console.log('bills',billData)
 
   //Pdf generate-----------
   const generatePdf = () => {
@@ -64,7 +65,20 @@ const ViewMonthlyBill = () => {
 
     doc.setFont("times", "bold")
     doc.setFontSize(12); // Adjust the font size as needed
-    doc.text('Subject: Notification for Payment of October Electricity Bill.', 15, currentY);
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    
+    // Split the billingMonth into year and month parts
+    const [year, month] = billData.billingMonth.split("-");
+    
+    // Convert month to a zero-based index and get the month name
+    const monthName = monthNames[parseInt(month) - 1];
+    
+    // Format the date as "February, 2024"
+    const formattedDate = `${monthName}, ${year}`;
+    doc.text(`Subject: Notification for Payment of ${formattedDate} Electricity Bill.`, 15, currentY);    
     currentY += 10; // Move Y down
   
     // Paragraph text with maxWidth for wrapping

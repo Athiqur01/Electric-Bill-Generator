@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 const CreateBill = () => {
   const [formData, setFormData] = useState({});
   const [billingMonth, setBillingMonth] = useState(null);
+  const [dueDate, setDueDate]=useState(null)
   const [bill, setBill] = useState({});
 
   // Fetch bill rates
@@ -47,20 +48,20 @@ const CreateBill = () => {
 
     if (units < 51) {
       calculatedBill = units * rateData?.stage1;
-    } else if (units < 76) {
-      calculatedBill = 50 * rateData?.stage1 + (units - 50) * rateData?.stage2;
+    } else if (units>50 && units < 76) {
+      calculatedBill =  units * rateData?.stage2;
     } else if (units < 201) {
-      calculatedBill = 50 * rateData?.stage1 + 25 * rateData?.stage2 + (units - 75) * rateData?.stage3;
+      calculatedBill =  75 * rateData?.stage2 + (units - 75) * rateData?.stage3;
     } else if (units < 301) {
-      calculatedBill = 50 * rateData?.stage1 + 25 * rateData?.stage2 + 125 * rateData?.stage3 + (units - 200) * rateData?.stage4;
+      calculatedBill =  75 * rateData?.stage2 + 125 * rateData?.stage3 + (units - 200) * rateData?.stage4;
     } else if (units < 401) {
-      calculatedBill = 50 * rateData?.stage1 + 25 * rateData?.stage2 + 125 * rateData?.stage3 + 100 * rateData?.stage4 + (units - 300) * rateData?.stage5;
+      calculatedBill = 75 * rateData?.stage2 + 125 * rateData?.stage3 + 100 * rateData?.stage4 + (units - 300) * rateData?.stage5;
     } else if (units < 601) {
-      calculatedBill = 50 * rateData?.stage1 + 25 * rateData?.stage2 + 125 * rateData?.stage3 + 100 * rateData?.stage4 + 100 * rateData?.stage5 + (units - 400) * rateData?.stage6;
+      calculatedBill = 75 * rateData?.stage2 + 125 * rateData?.stage3 + 100 * rateData?.stage4 + 100 * rateData?.stage5 + (units - 400) * rateData?.stage6;
     } else {
-      calculatedBill = 50 * rateData?.stage1 + 25 * rateData?.stage2 + 125 * rateData?.stage3 + 100 * rateData?.stage4 + 100 * rateData?.stage5 + 200 * rateData?.stage6 + (units - 600) * rateData?.stage7;
+      calculatedBill = 75 * rateData?.stage2 + 125 * rateData?.stage3 + 100 * rateData?.stage4 + 100 * rateData?.stage5 + 200 * rateData?.stage6 + (units - 600) * rateData?.stage7;
     }
-
+    calculatedBill=calculatedBill.toFixed(1)
     // Update bill state for this subscriber
     setBill(prev => ({
       ...prev,
@@ -72,6 +73,11 @@ const CreateBill = () => {
   const handleMonth = (e) => {
     const date = e.target.value;
     setBillingMonth(date);
+  };
+  // Handle due Date selection
+  const handleDueDate = (e) => {
+    const date = e.target.value;
+    setDueDate(date);
   };
 
   // Handle form submission
@@ -94,7 +100,7 @@ const CreateBill = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:5012/billingData?q=${billingMonth}`, {billingData,billingMonth});
+      const response = await axios.post(`http://localhost:5012/billingData?q=${billingMonth}`, {billingData,billingMonth,dueDate});
       console.log(response.data);
       if (response.data) {
         Swal.fire({
@@ -115,12 +121,19 @@ const CreateBill = () => {
       <h2 className="mt-16 text-4xl font-bold text-blue-600 text-center">Create Bill</h2>
       
       {/*Billing Date */}
-      <div className="flex justify-center mt-8 gap-x-4">
-        <h2 className="text-xl font-semibold bg-green-500 px-2 rounded-sm">Select Month</h2>
-        <input onChange={handleMonth} type="month" name="date" className="text-center border-green-300 border-[1px] py-1 rounded-md" />
+     <div className=" flex gap-10 justify-center">
+     <div className="flex justify-center mt-8 gap-x-4">
+        <h2 className="text-xl font-semibold bg-green-500 px-2 rounded-sm">Billing Month</h2>
+        <input onChange={handleMonth} type="month" name="date" className="text-center border-green-300 border-[1px] py-1 rounded-md" required/>
       </div>
+      
+      <div className="flex justify-center mt-8 gap-x-4">
+        <h2 className="text-xl font-semibold bg-green-500 px-2 rounded-sm">Due Date</h2>
+        <input onChange={handleDueDate} type="date" name="date" className="text-center border-green-300 border-[1px] py-1 rounded-md" required />
+      </div>
+     </div>
 
-      <div className="overflow-x-auto px-2 md:px-52 lg:px-62 mt-8">
+      <div className="overflow-x-auto px-2 md:px-32 lg:px-32 mt-8">
         <div className="grid grid-cols-6 gap-x-2">
           <h2 className="text-center font-semibold">Serial No</h2>
           <h2 className="text-center font-semibold">Name</h2>
