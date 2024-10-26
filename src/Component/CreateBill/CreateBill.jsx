@@ -7,6 +7,7 @@ const CreateBill = () => {
   const [formData, setFormData] = useState({});
   const [billingMonth, setBillingMonth] = useState(null);
   const [dueDate, setDueDate]=useState(null)
+  const [issue, setIssue]=useState(null)
   const [bill, setBill] = useState({});
 
   // Fetch bill rates
@@ -79,6 +80,11 @@ const CreateBill = () => {
     const date = e.target.value;
     setDueDate(date);
   };
+  // Handle due Date selection
+  const handleIssueNo = (e) => {
+    const date = e.target.value;
+    setIssue(date);
+  };
 
   // Handle form submission
   const handleDataSubmit = async () => {
@@ -100,7 +106,7 @@ const CreateBill = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:5012/billingData?q=${billingMonth}`, {billingData,billingMonth,dueDate});
+      const response = await axios.post(`http://localhost:5012/billingData?q=${billingMonth}`, {billingData,billingMonth,dueDate,issue});
       console.log(response.data);
       if (response.data) {
         Swal.fire({
@@ -123,13 +129,17 @@ const CreateBill = () => {
       {/*Billing Date */}
      <div className=" flex gap-10 justify-center">
      <div className="flex justify-center mt-8 gap-x-4">
-        <h2 className="text-xl font-semibold bg-green-500 px-2 rounded-sm">Billing Month</h2>
+        <h2 className="text-xl font-semibold bg-green-500 px-2 rounded-sm">Billing Month:</h2>
         <input onChange={handleMonth} type="month" name="date" className="text-center border-green-300 border-[1px] py-1 rounded-md" required/>
       </div>
       
       <div className="flex justify-center mt-8 gap-x-4">
-        <h2 className="text-xl font-semibold bg-green-500 px-2 rounded-sm">Due Date</h2>
+        <h2 className="text-xl font-semibold bg-green-500 px-2 rounded-sm">Due Date:</h2>
         <input onChange={handleDueDate} type="date" name="date" className="text-center border-green-300 border-[1px] py-1 rounded-md" required />
+      </div>
+      <div className="flex justify-center mt-8 gap-x-4">
+        <h2 className="text-xl font-semibold bg-green-500 px-2 rounded-sm">Issue No.:</h2>
+        <input onChange={handleIssueNo} type="text" name="date" className="text-center border-green-300 border-[1px] py-1 rounded-md" required />
       </div>
      </div>
 
