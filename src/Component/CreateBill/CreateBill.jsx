@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -9,6 +9,14 @@ const CreateBill = () => {
   const [dueDate, setDueDate]=useState(null)
   const [issue, setIssue]=useState(null)
   const [bill, setBill] = useState({});
+  const [totalBills, setTotalBills]=useState()
+  const currentDate = new Date().toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+});
+
+console.log(currentDate);
 
   // Fetch bill rates
   const { data: billRateFetch } = useQuery({
@@ -86,8 +94,18 @@ const CreateBill = () => {
     setIssue(date);
   };
 
+  //Total Bill----
+  useEffect(() => {
+    let total = 0;
+    subscribers?.forEach((subscriber) => {
+      total += parseFloat(bill[subscriber?._id]?.calculatedBill || 0);
+    });
+    setTotalBills(total);
+  }, [bill, subscribers]);
+  console.log('total',totalBills)
   // Handle form submission
   const handleDataSubmit = async () => {
+    
     const billingData = subscribers?.map(subscriber=>({
       id:subscriber?._id,
       name:subscriber?.name,
@@ -106,7 +124,7 @@ const CreateBill = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:5012/billingData?q=${billingMonth}`, {billingData,billingMonth,dueDate,issue});
+      const response = await axios.post(`http://localhost:5012/billingData?q=${billingMonth}`, {billingData,billingMonth,dueDate,issue,totalBills,currentDate});
       console.log(response.data);
       if (response.data) {
         Swal.fire({
@@ -129,17 +147,17 @@ const CreateBill = () => {
       {/*Billing Date */}
      <div className=" flex gap-10 justify-center">
      <div className="flex justify-center mt-8 gap-x-4">
-        <h2 className="text-xl font-semibold bg-green-500 px-2 rounded-sm">Billing Month:</h2>
-        <input onChange={handleMonth} type="month" name="date" className="text-center border-green-300 border-[1px] py-1 rounded-md" required/>
+        <h2 className="text-xl font-semibold bg-[#7C4DFF] py-1 text-white px-2 rounded-sm">Billing Month:</h2>
+        <input onChange={handleMonth} type="month" name="date" className="text-center border-[#7C4DFF] border-[1px] py-1 rounded-md" required/>
       </div>
       
       <div className="flex justify-center mt-8 gap-x-4">
-        <h2 className="text-xl font-semibold bg-green-500 px-2 rounded-sm">Due Date:</h2>
-        <input onChange={handleDueDate} type="date" name="date" className="text-center border-green-300 border-[1px] py-1 rounded-md" required />
+        <h2 className="text-xl font-semibold bg-[#7C4DFF] py-1 text-white px-2 rounded-sm">Due Date:</h2>
+        <input onChange={handleDueDate} type="date" name="date" className="text-center border-[#7C4DFF] border-[1px] py-1 rounded-md" required />
       </div>
       <div className="flex justify-center mt-8 gap-x-4">
-        <h2 className="text-xl font-semibold bg-green-500 px-2 rounded-sm">Issue No.:</h2>
-        <input onChange={handleIssueNo} type="text" name="date" className="text-center border-green-300 border-[1px] py-1 rounded-md" required />
+        <h2 className="text-xl font-semibold bg-[#7C4DFF] py-1 text-white px-2 rounded-sm">Issue No.:</h2>
+        <input onChange={handleIssueNo} type="text" name="date" className="text-center border-[#7C4DFF] border-[1px] py-1 rounded-md" required />
       </div>
      </div>
 
@@ -165,14 +183,14 @@ const CreateBill = () => {
               name="unit"
               
               onChange={(e) => handleInputChange(e, subscriber?._id)}
-              className="text-center border-green-300 border-[1px] py-1 rounded-md"
+              className="text-center border-[#7C4DFF] border-[1px] py-1 rounded-md"
             />
 
             <h2 className="text-center">{bill[subscriber?._id] ? `${bill[subscriber?._id]?.calculatedBill} Tk` : "N/A"}</h2>
           </form>
         ))}
         <div className="flex justify-center mt-4">
-          <button onClick={handleDataSubmit} type="submit" className="bg-green-500 px-4 py-1 rounded-sm">Submit</button>
+          <button onClick={handleDataSubmit} type="submit" className="bg-[#7C4DFF] text-white px-4 py-1 rounded-sm">Submit</button>
         </div>
       </div>
     </div>

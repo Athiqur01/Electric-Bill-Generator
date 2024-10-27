@@ -18,7 +18,7 @@ const Bill = () => {
 
     return (
         <div>
-            <h2 className="mt-16 text-4xl font-bold text-blue-600 text-center">Monthly Bill</h2>
+            <h2 className="mt-16 text-4xl font-bold text-[#7C4DFF] text-center">Monthly Bill</h2>
             {/* table start */}
             <div className="overflow-x-auto mt-6  flex justify-center">
   <table className="table max-w-[800px]">
@@ -37,7 +37,7 @@ const Bill = () => {
           <tr>
       <th className="text-center">{index+1}</th>
       <td className="text-center"><input type="month" value={monthlyBill?.billingMonth} disabled /></td>
-      <td className="text-center flex gap-4 justify-center"> <Link to={`/viewBill/${monthlyBill?._id}`}><button className="bg-green-500 px-4 py-1 rounded-sm">View</button></Link>  <button className="bg-green-500 px-4 py-1 rounded-sm">Download</button></td>
+      <td className="text-center flex gap-4 justify-center"> <Link to={`/viewBill/${monthlyBill?._id}`}><button className="bg-[#7C4DFF] text-white px-4 py-1 rounded-sm">View</button></Link>  </td>
       
     </tr>
         </>)

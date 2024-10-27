@@ -76,7 +76,7 @@ const AddSubescriber = () => {
                  placeholder="Job Entry Date"
                  {...register("EntryDate", { required: true })}
                  className="input input-bordered input-info w-full mt-6" />
-                <button type="submit" className="text-center bg-green-500 w-full mt-6 py-2 rounded-md">Submit</button>
+                <button type="submit" className="text-center bg-[#7C4DFF] text-white w-full mt-6 py-2 rounded-md">Submit</button>
             </form>
             </div>
         </div>

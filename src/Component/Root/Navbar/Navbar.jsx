@@ -1,7 +1,8 @@
+import { NavLink } from 'react-router-dom';
 import './font.css'
 const Navbar = () => {
     return (
-        <div className="navbar bg-[#388E3C] min-h-24">
+        <div className="navbar bg-[#E91E63] min-h-24">
   <div className="navbar-start">
     <div className="dropdown">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -21,32 +22,23 @@ const Navbar = () => {
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-        <li><a>Item 1</a></li>
-        <li>
-          <a>Parent</a>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li>
-        <li><a>Item 3</a></li>
+        <li>Home</li>
+        <li>Create Bill</li>
+        <li>Monthly Bill</li>
+        <li>Add Subscriber</li>
       </ul>
     </div>
-    <h2 className='font-two'>Electric Bill Generator</h2>
+    <h2 className='font-two text-white text-xl font-bold'>Electricity Bill Generator</h2>
   </div>
   <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal px-1">
-      <li><a>Item 1</a></li>
-      <li>
-        <details>
-          <summary>Parent</summary>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </details>
-      </li>
-      <li><a>Item 3</a></li>
+    <ul className="menu menu-horizontal px-1 text-white space-x-4 font-semibold">
+        <NavLink to='/'><li>Home</li></NavLink>
+        <NavLink to='/createBill'><li>Create Bill</li></NavLink>
+        <NavLink to='/bill'><li>Monthly Bill</li></NavLink>
+        <NavLink to='/addSubescriber'><li>Add Subscriber</li></NavLink>
+        
+        
+        
     </ul>
   </div>
   <div className="navbar-end">

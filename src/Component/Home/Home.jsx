@@ -7,9 +7,9 @@ const Home = () => {
             <Link to='/addSubescriber'><div className="shadow-lg rounded-sm min-h-52 flex justify-center items-center">
                 <h2 className="font-semibold text-xl text-center font-one">Add Subscriber</h2>
             </div></Link>
-            <div className="shadow-lg rounded-sm min-h-52 flex justify-center items-center">
+            <Link to='/update'><div className="shadow-lg rounded-sm min-h-52 flex justify-center items-center">
                 <h2 className="font-semibold text-xl text-center font-one">Update Subscriber</h2>
-            </div>
+            </div></Link>
 
             <Link to='/createBill'><div className="shadow-lg rounded-sm min-h-52 flex justify-center items-center">
                 <h2 className="font-semibold text-xl text-center font-one">Create Bill</h2>

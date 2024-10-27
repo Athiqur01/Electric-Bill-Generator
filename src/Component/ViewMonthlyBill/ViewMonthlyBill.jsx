@@ -54,7 +54,7 @@ const ViewMonthlyBill = () => {
 
    doc.setFont("times", "normal");
    const noText = `No. : 15.53.6100.329.25.013.23.${billData?.issue}`;
-   const dateText = 'Date: 28/10/2024';
+   const dateText = `Date: ${billData?.currentDate}`;
  
    doc.text(noText, 15, currentY); // Align "No." to the left at x=15
    doc.text(dateText, doc.internal.pageSize.getWidth() - 15, currentY, { align: 'right' }); // Align "Date" to the right
@@ -87,8 +87,8 @@ const ViewMonthlyBill = () => {
   
     // Paragraph text with maxWidth for wrapping
     doc.setFont("times", "normal")
-    const paragraphText = `All officers and staff of Bangladesh Betar, Mymensingh, are hereby notified to submit their electricity bill payments for the month of ${formattedDate} to the Regional Engineer by ${billData.dueDate}, according to the following chart:`;
-    doc.text(paragraphText, 15, currentY, { maxWidth: 170 });
+    const paragraphText = `All officers and staff of Bangladesh Betar, Mymensingh, are hereby notified to submit their electricity bill payments for the month of ${formattedDate} to the Regional Engineer, Bangladesh Betar, Mymensingh by ${billData.dueDate}, according to the following chart:`;
+    doc.text(paragraphText, 15, currentY, { maxWidth: 180 });
     const paragraphHeight = doc.getTextDimensions(paragraphText).h; // Get paragraph height to adjust Y
     currentY += paragraphHeight + 10; // Update Y for table start, adding padding
   
@@ -129,8 +129,11 @@ const ViewMonthlyBill = () => {
       tableLineWidth: 0.2,
       tableLineColor: [0, 0, 0],
     });
-
-    currentY = doc.lastAutoTable.finalY + 10;
+    const total=billData?.totalBills.toFixed(1)
+    currentY = doc.lastAutoTable.finalY + 5;
+    doc.setFont("times", "normal")
+  doc.text(`Total: ${total}`, doc.internal.pageSize.getWidth() -15, currentY, { align: 'right' });
+  currentY += 5;
 
   // Add additional paragraph after the table
   const additionalParagraph = 'Please ensure payment by the due date to avoid any inconvenience.';
@@ -152,7 +155,7 @@ currentY += 5; // Add some spacing after the previous content
 // Add each line of the signature text
 signatureLines.forEach((line, index) => {
   doc.text(line, signatureX, currentY, { align: 'center' });
-  currentY += 5; // Space between lines
+  currentY += 4; // Space between lines
 });
 
     // Distribution
@@ -164,17 +167,23 @@ signatureLines.forEach((line, index) => {
     doc.setFont("times", "normal")
     doc.text('1. Regional Director, Bangladesh Betar, Mymensingh ', 15, currentY);    
     currentY += 5; // Move Y down
-    doc.setFont("times", "normal")
-    doc.text('2. DRD/ DCN/ DRE/ AD/ ACN, Bangladesh Betar, Mymensingh ', 15, currentY);    
+    
+    doc.text('2. DRD/ DCN/ DRE/ AD/ ACN/ ARE, Bangladesh Betar, Mymensingh ', 15, currentY);    
     currentY += 5; // Move Y down
-    doc.setFont("times", "normal")
+    
     doc.text('3. Notice Board ', 15, currentY);    
+    currentY += 5; // Move Y down
+
+    doc.text('4. ..........................................., Bangladesh Betar, Mymensingh ', 15, currentY);    
+    currentY += 5; // Move Y down
+
+    doc.text('5. File ', 15, currentY);    
     currentY += 5; // Move Y down
   
     // Adding page numbers
     
   
-    doc.save('srb_item_list.pdf');
+    doc.save('Electricity Bill.pdf');
   };
   
 
@@ -182,7 +191,7 @@ signatureLines.forEach((line, index) => {
         <div>
             <div className="overflow-x-auto">
             <div className="overflow-x-auto px-2 md:px-10 lg:px-16">
-              <h2 className="text-center text-2xl my-6 font-bold text-green-500">Billing Month: <input  type="month" value={billData?.billingMonth} disabled /> </h2>
+              <h2 className="text-center text-2xl my-6 font-bold text-[#7C4DFF]">Billing Month: <input  type="month" value={billData?.billingMonth} disabled /> </h2>
   <table className="table">
     {/* head */}
     <thead>
@@ -213,7 +222,7 @@ signatureLines.forEach((line, index) => {
     </tbody>
   </table>
 </div>
-<div className="flex justify-center py-10"><button onClick={generatePdf} className="text-center font-bold bg-green-500 p-2 rounded-md">Download Bill</button></div>
+<div className="flex justify-center py-10"><button onClick={generatePdf} className="text-center font-bold bg-[#7C4DFF] text-white p-2 rounded-md">Download Bill</button></div>
 </div>
         </div>
     );
