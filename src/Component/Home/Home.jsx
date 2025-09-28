@@ -14,6 +14,9 @@ const Home = () => {
             <Link to='/createBill'><div className="shadow-lg rounded-sm min-h-52 flex justify-center items-center">
                 <h2 className="font-semibold text-xl text-center font-one">Create Bill</h2>
             </div></Link>
+            <Link to='/entryReading'><div className="shadow-lg rounded-sm min-h-52 flex justify-center items-center">
+                <h2 className="font-semibold text-xl text-center font-one">Entry Reading</h2>
+            </div></Link>
             
             
 

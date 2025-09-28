@@ -1,11 +1,13 @@
 
 
 const DutyChart = () => {
-    return (
-        <div>
-            <h2>hello</h2>
-        </div>
-    );
+  const data = 15;
+
+  return (
+    <>
+      {data === 15 ? <>hello</> : <>ma</>}
+    </>
+  );
 };
 
 export default DutyChart;

@@ -28,14 +28,15 @@ console.log(currentDate);
   });
 
   // Fetch subscribers
-  const { data: subscribers } = useQuery({
+  const { data: subscribers2 } = useQuery({
     queryKey: ['rate'],
     queryFn: async () => {
       const res = await axios.get('http://localhost:5012/user');
       return res.data;
     }
   });
-
+ const subscribers=subscribers2?.filter(subscriber=>subscriber?.active==="true")
+ console.log("subs",subscribers)
   // Handle input changes for units
   const handleInputChange = (e, subscriberId) => {
     const { value } = e.target;
@@ -166,7 +167,8 @@ console.log(currentDate);
           <h2 className="text-center font-semibold">Serial No</h2>
           <h2 className="text-center font-semibold">Name</h2>
           <h2 className="text-center font-semibold">Designation</h2>
-          <h2 className="text-center font-semibold">Meter No.</h2>
+          <h2 className="text-center font-semibold">Flat No.</h2>
+          
           <h2 className="text-center font-semibold">Unit</h2>
           <h2 className="text-center font-semibold">Bill</h2>
         </div>
@@ -176,7 +178,8 @@ console.log(currentDate);
             <input type="text" name="name" value={index + 1} className="text-center text-black" readOnly />
             <input type="text" name="name" value={subscriber?.name} className="text-center text-black" readOnly />
             <input type="text" name="designation" value={subscriber?.designation} className="text-center" readOnly />
-            <input type="text" name="meterNo" value={subscriber?.meterNo} className="text-center" readOnly />
+            <input type="text" name="meterNo" value={subscriber?.flatNo} className="text-center" readOnly />
+            
 
             <input
               type="text"

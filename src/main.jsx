@@ -15,6 +15,7 @@ import Bill from './Component/Bill/Bill';
 import ViewMonthlyBill from './Component/ViewMonthlyBill/ViewMonthlyBill';
 import DutyChart from './Component/DutyChart/DutyChart';
 import UpdateSubscriber from './Component/Footer/UpdateSubscriber/UpdateSubscriber';
+import EntryReading from './Component/EntryReading/EntryReading';
 
 const queryClient = new QueryClient()
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path:'/createBill',
         element:<CreateBill></CreateBill>
+      },
+      {
+        path:'/entryReading',
+        element:<EntryReading></EntryReading>
       },
       {
         path:'/bill',

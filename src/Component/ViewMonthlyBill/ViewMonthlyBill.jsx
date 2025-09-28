@@ -42,7 +42,7 @@ const ViewMonthlyBill = () => {
   
     // Adding header text
     doc.setFont("times", "normal")
-    doc.text("People's Republic of Bangladesh", doc.internal.pageSize.getWidth() / 2, currentY, { align: 'center' });
+    doc.text("Government of the People's Republic of Bangladesh", doc.internal.pageSize.getWidth() / 2, currentY, { align: 'center' });
     currentY += 7; // Move Y down by 7 units for the next line
   
     doc.text('Bangladesh Betar, Mymensingh', doc.internal.pageSize.getWidth() / 2, currentY, { align: 'center' });
@@ -136,6 +136,10 @@ const ViewMonthlyBill = () => {
   currentY += 5;
 
   // Add additional paragraph after the table
+  const additionalParagraphNB = '[N.B.: The list is not ordered by seniority.]';
+  doc.text(additionalParagraphNB, 15, currentY, { maxWidth: 170 });
+  currentY += doc.getTextDimensions(additionalParagraphNB).h + 2;
+
   const additionalParagraph = 'Please ensure payment by the due date to avoid any inconvenience.';
   doc.text(additionalParagraph, 15, currentY, { maxWidth: 170 });
   currentY += doc.getTextDimensions(additionalParagraph).h + 6;
