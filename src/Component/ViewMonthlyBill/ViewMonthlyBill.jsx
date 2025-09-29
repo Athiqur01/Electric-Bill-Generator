@@ -217,7 +217,7 @@ signatureLines.forEach((line, index) => {
       <td>{subscriber?.designation}</td>
       <td>{subscriber?.flatNo}</td>
       <td>{subscriber?.meterNo}</td>
-      <td>{billData?.formData?.subscriber?._id      }</td>
+      <td>{subscriber?.unit    }</td>
       <td>{subscriber?.bill}</td>
     </tr>
       </>)}

@@ -16,6 +16,7 @@ import ViewMonthlyBill from './Component/ViewMonthlyBill/ViewMonthlyBill';
 import DutyChart from './Component/DutyChart/DutyChart';
 import UpdateSubscriber from './Component/Footer/UpdateSubscriber/UpdateSubscriber';
 import EntryReading from './Component/EntryReading/EntryReading';
+import EnterData from './Component/EnterData/EnterData';
 
 const queryClient = new QueryClient()
 
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
       {
         path:'/dutyChart',
         element:<DutyChart></DutyChart>
+      },
+      {
+        path:'/enter-data',
+        element:<EnterData></EnterData>
       },
       {
         path:'/update',

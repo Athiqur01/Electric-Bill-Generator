@@ -28,7 +28,7 @@ const UpdateSubscriber = () => {
                       <input type="text" value={subscriber?.designation} className="text-center border-[#7C4DFF] border-2 py-1 px-2 rounded-md" />
                       <input type="text" value={subscriber?.flatNo} className="text-center border-[#7C4DFF] border-2 py-1 px-2 rounded-md"/>
                       <input type="text" value={subscriber?.meterNo} className="text-center border-[#7C4DFF] border-2 py-1 px-2 rounded-md"/>
-                      <input type="text" value={subscriber?.grade} className="text-center border-[#7C4DFF] border-2 py-1 px-2 rounded-md"/>
+                      <input type="text" value={subscriber?.grade?.$numberDecimal} className="text-center border-[#7C4DFF] border-2 py-1 px-2 rounded-md"/>
                       <button type="submit" className="text-white font-bold py-2 px-4 rounded-md bg-[#7C4DFF]">Update</button>
                       
                       
